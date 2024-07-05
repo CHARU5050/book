@@ -7,13 +7,15 @@ const jwt = require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
 const multer =require('multer');
 const path = require('path');
-const poppler = require('pdf-poppler');
+const {exec}=require('child_process');
 const fs = require('fs');
 require('dotenv').config();
-
+const util = require('util');
+const execPromise = util.promisify(exec);
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
-const { PaymentElement } = require("@stripe/react-stripe-js");
 
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 
 
@@ -30,28 +32,37 @@ const db = mysql.createConnection({
 
 
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET,
+});
+
+
+
+
 const FRONTEND_URL=process.env.FRONTEND_URL;
 
 app.get('/', (req, res) => {
-  res.send('Hello ');
+  res.send('Hello');
 });
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '../client/public/upload')
-    },
-    filename: function (req, file, cb) {
-      
-      cb(null,Date.now() +file.originalname)
-    }
-  })
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'uploads', // Folder name in Cloudinary where files will be stored
+    format: async (req, file) => 'jpeg', // Format of the uploaded file
+    public_id: (req, file) => Date.now() + file.originalname, // Custom filename
+  },
+});
 const upload =multer({storage})
 
-app.post('/upload', upload.single('file'), function (req, res, ) {
-    const file=req.file;
-    res.status(200).json(file.filename)
-   
-  })
+
+app.post('/upload', upload.single('file'), function (req, res) {
+  
+  const file = req.file;
+  res.status(200).json(file.path); // Cloudinary URL of the uploaded file
+});
 
 app.post('/server/upload', upload.single('file'), function (req, res, ) {
     const file=req.file;
@@ -673,7 +684,7 @@ app.get('/getorders', async (req, res) => {
 
 const store = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../client/public/bookflip')
+    cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname))
@@ -683,62 +694,71 @@ const store = multer.diskStorage({
 
 const uploadbook=multer({storage:store}).single('file')
 
-app.post('/addBookToMainPage', async (req, res) => {
+
+app.post('/addBookToMainPage', (req, res) => {
   uploadbook(req, res, async (err) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ error: 'Failed to upload file' });
     } else {
       const pdfPath = req.file.path;
-      const outputDir = path.resolve(__dirname, '..', 'client', 'public', 'book');
+      const outputDir = 'uploads/'; // Temporary output directory for images
       const outputBaseName = path.basename(pdfPath, path.extname(pdfPath));
-      const outputFormat = 'jpeg';
       const imagePaths = [];
       const requestId = Date.now(); // Unique ID for this request
 
-      // Send initial response
-      res.status(200).json({  requestId });
+   
       
 
       const options = {
-        format: outputFormat,
+        format: 'jpeg',
         out_dir: outputDir,
         out_prefix: outputBaseName,
         page: null
       };
 
       try {
-       
-        await convertPdfToImages(options, pdfPath);
+        await convertPdfToImages(outputDir, outputBaseName, pdfPath);
 
         const files = await fs.promises.readdir(outputDir);
-        files.forEach(file => {
+        for (const file of files) {
           if (file.startsWith(outputBaseName) && !file.endsWith('pdf')) {
-            imagePaths.push(file);
+            const imagePath = path.join(outputDir, file);
+            const uploadResponse = await cloudinary.uploader.upload(imagePath, {
+              folder: 'book_images', // Cloudinary folder
+              public_id: path.basename(imagePath, path.extname(imagePath))
+            });
+            imagePaths.push(uploadResponse.secure_url);
+            await fs.promises.unlink(imagePath); // Delete local file after uploading
           }
-        });
-    
-        const imagePathsJson = JSON.stringify(imagePaths);
-        
-        try {
-          await db.query('INSERT INTO freebook (idfreebook, imgurl) VALUES (?, ?)', [requestId, imagePathsJson]);
-        } catch (error) {
-          throw error;
         }
-    
+
+        const imagePathsJson = JSON.stringify(imagePaths);
+        await db.query('INSERT INTO freebook (idfreebook, imgurl) VALUES (?, ?)', [requestId, imagePathsJson]);
+        res.status(200).json({ requestId });
+
       } catch (error) {
         console.error('Error converting PDF to images:', error);
-        
+      } finally {
+        await fs.promises.unlink(pdfPath); // Delete the local PDF file
       }
     }
   });
 });
 
-async function convertPdfToImages(options,pdfPath) {
 
-  await poppler.convert(pdfPath, options);
+async function convertPdfToImages(outputDir, outputBaseName, pdfPath) {
+  try {
+    const { stdout, stderr } = await execPromise(`magick convert ${pdfPath} -quality 100 ${outputDir}/${outputBaseName}-%03d.jpg`);
+    if (stderr) {
+      console.error('Error:', stderr);
+    } else {
+      console.log('Success:', stdout);
+    }
+  } catch (error) {
+    console.error('Exec error:', error);
+  }
 }
-
 
 
 // Assuming you have already set up your MySQL connection and Express app
@@ -896,14 +916,14 @@ app.delete('/deletefreebooks/:id', (req, res) => {
 
     const filesToDelete = JSON.parse(results[0].imgurl); // assuming imgurl contains a JSON array of filenames
 
-    // Delete files
+    
     filesToDelete.forEach(file => {
       const filePath = path.join(__dirname, '..', 'client', 'public', 'book', file);
       fs.unlink(filePath, err => {
         if (err) {
           console.error(`Failed to delete file`, err);
         } else {
-          console.log(`Deleted file ${filePath}`);
+          console.log(`Deleted file`);
         }
       });
     });
@@ -933,7 +953,5 @@ app.get('/feedbackget', (req, res) => {
 });
 
 app.listen(3001,()=>{
-    console.log("hey,running");
+    console.log("hey,running.");
 })
-
-

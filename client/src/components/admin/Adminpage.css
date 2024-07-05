@@ -1,0 +1,59 @@
+#dashboard-menu{
+    position: fixed;
+    height: 100%;
+}
+.navbar-admin{
+    position:sticky;
+
+}
+
+.nav-link{
+  font-size: 2rem;
+}
+
+.homedetails{
+    margin:4rem;
+    .btn{
+      background: black;
+      padding: 1rem;
+    }
+}
+.form-label {
+
+    font-size: 2rem;
+}
+.form-control{
+    font-size:1.9rem;
+}
+.section_heading{
+
+    font-size: 3rem;
+  
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  table img{
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .admin-button{
+    color:white;
+    background: black;
+    text-transform: uppercase;
+  }

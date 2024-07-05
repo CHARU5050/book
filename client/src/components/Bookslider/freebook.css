@@ -1,0 +1,158 @@
+.flipbook {
+    margin: 2rem auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+.page{
+    width:100vh;
+        }
+ .page img{
+    width:100%;
+    height:94%;
+
+ }
+
+ .selectoptions-for-book .form-select  {
+    margin-top:2rem ;
+    font-size: 2rem;
+    text-transform: capitalize;
+ }
+
+
+ .selectcard{
+    width:500px;
+    margin-top: 2rem;
+ }
+
+ .card-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+
+
+   .page img{
+    width:500px;
+
+   }
+ }
+ @media (max-width: 700px) {
+    .selectcard{
+        width:300px;
+
+    }
+    .card-page  .page img{
+        width:300px;
+    }
+    
+}
+
+@media (max-width: 500px) {
+    .selectcard{
+        width:250px;
+        height:400px;
+
+    }
+    .card-page  .page img{
+        width:250px;
+        height: 400px;
+    }
+    
+}
+
+
+.selectcoverflow{
+    width: 60%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+.coverflow-page{
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+
+
+    .page img{
+        display: block;
+        width:100%;
+
+    }
+
+    .page{
+        width:50%;
+    }
+}
+
+
+.onepage-swiper{
+    width:100%;
+   
+    .swiper {
+        width: 45%;
+        height: 800px;
+
+        padding: 50px;
+      }
+      
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        height: 300px;
+      }
+      
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow */
+      }
+      
+
+
+
+}
+
+
+@media (max-width: 600px) {
+    .onepage-swiper{
+        width:100%;
+       
+        .swiper {
+            width: 90%;
+            height: 400px;
+    
+            padding: 50px;
+          }
+        }
+
+        .swiper-button-next:after{
+            font-size: 5rem;
+        }
+   
+    
+}
+
+
+.coverflow-swiper{
+    .swiper {
+        margin: 100px auto;
+        width: 320px;
+        height: 240px;
+      }
+      
+      .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+      }
+      
+}

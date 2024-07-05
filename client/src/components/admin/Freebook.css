@@ -1,0 +1,173 @@
+.freebook{
+    background:#f5f8ff;
+    height:100vh;
+
+    .box{
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow:rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width:35rem;
+
+    }
+    .header {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .drop-file-input {
+        position: relative;
+    
+        height: 200px;
+        border: 2px dashed #1c1d20;
+        border-radius: 20px;
+    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        background-color:#f5f8ff;
+    }
+    
+    .drop-file-input input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .drop-file-input:hover,
+    .drop-file-input.dragover {
+        opacity: 0.6;
+    }
+    
+    .drop-file-input__label {
+        text-align: center;
+        color: #ccc;
+        font-weight: 600;
+        padding: 10px;
+    }
+    
+    .drop-file-input__label img {
+        width: 100px;
+    }
+    .custom-container {
+        text-align: start;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .custom-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .custom-content {
+        width: 100%;
+        height: auto;
+        padding:1rem;
+        font-size: 1.5rem;
+        background-color: #edf2f7;
+        color: #2d3748;
+        border-radius: 0.375rem;
+    }
+    
+    .custom-text {
+        font-size: 1.6rem;
+        font-weight: 900;
+    }
+    
+    .custom-button {
+        position: absolute;
+        top: -1.85rem;
+        right: -0.5rem;
+        background-color: #eff3f7;
+        color: #f56565;
+        cursor: pointer;
+        border-radius: 0.125rem;
+        border:none;
+    }
+    .drop-file-textinput{
+        border: 2px dashed black;
+        height:3rem;
+        width: 100%;
+        border-radius: 20px;
+        background-color:#f5f8ff;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        
+    }
+    .box .drop-file-textinput:focus{
+        border: 2px dashed black;
+        height:3rem;
+        width: 100%;
+        border-radius: 20px;
+        background-color:#f5f8ff;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        
+    }
+    .wholepage{
+        display: flex;
+        justify-content: space-between;
+        
+    }
+    .formpage{
+        
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        margin-left: 2rem;
+    }
+    .preview{
+        width:100%;
+    }
+    .btn{
+        
+        padding:1rem;
+        font-size: 1.5rem;
+        width:100%;
+        margin:1rem 0;
+
+
+    }
+
+    .preview{
+
+        .flipbook{
+            background: rgb(235, 249, 248);
+            margin:3rem auto;
+        }
+        .page{
+            width:300px;
+         height:950px;        }
+         .page img{
+            width:100%;
+            height:94%;
+
+         }
+         h1{
+            margin-top:3rem ;
+            text-align: center;
+            text-transform:capitalize ;
+            margin-bottom: 8rem;
+         }
+
+    }
+
+    .loading{
+        position: absolute;
+        left:70%;
+        top:50%;
+        width: 10rem;
+        
+    }
+    
+   
+
+    
+
+}

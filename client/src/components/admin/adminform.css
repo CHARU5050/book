@@ -1,0 +1,19 @@
+.card-body{
+    font-size: 1.6rem;
+}
+.setting-sections input{
+    font-size: 1.6rem;
+    text-transform: none;
+}
+
+.input-group-text{
+    font-size: 2rem;
+
+}
+.setting-sections .btn{
+    background: black;
+    padding: 0.5rem;
+    font-size: 1.6rem;
+}
+
+

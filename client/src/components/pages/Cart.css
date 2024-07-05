@@ -1,0 +1,228 @@
+.carttable{
+    border:none;
+    margin:10rem auto 2rem ;
+    width:90%;
+    outline: none;
+
+}
+
+.cartheader th{
+    background: none;
+    border:none;
+    border-bottom: 0.5px solid rgb(191, 189, 189);
+    text-align: center;
+}
+.cartrow td{
+    border:none;
+    border-bottom: 0.5px solid rgb(185, 184, 184);
+
+    text-align: center;
+}
+.cartrow td a{
+    color:gray;
+    cursor:pointer;
+
+
+}
+
+.totalcart{
+    width:80%;
+    margin:5rem auto 10rem;
+    border:1px solid gray;
+    padding:3rem;
+    border-radius: 10px;
+
+    h1{
+        font-size: 3rem;
+    }
+    .totalrow{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        padding: 10px 0;
+        h2{
+            font-size: 2rem;
+            font-weight: 400;
+        }
+        h6{
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        
+    }
+    button{
+        margin:2rem auto;
+        background-color: rgb(40, 116, 142);
+     
+    }
+
+    
+}
+
+.totalrow.bold{
+ 
+        h2{
+            font-size: 2rem;
+            font-weight:700;
+        }
+        h6{
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+}
+.cart_empty{
+    height:35rem;
+    width:40rem;
+    margin:0 55rem;
+}
+
+.carttb{
+
+
+
+/* Quantity input container */
+.quantity-input {
+    display: flex;
+    align-items: center;
+  justify-content: center;
+  
+}
+
+/* Quantity label */
+.quantity-label {
+
+    
+    
+    font-size: 2rem
+}
+
+/* Quantity input */
+.quantity-input input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 0 5px;
+    font-size: 2rem;
+}
+
+/* Increment and decrement buttons */
+.quantity-input button {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 2rem;
+}
+
+/* Disable decrement button when quantity is 1 */
+.quantity-input button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Hover styles for buttons */
+.quantity-input button:hover {
+    background-color: #e9ecef;
+}
+    
+}
+
+.payment{
+    height:100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    .payment_form{
+        display: flex;
+        flex-direction: column;
+        
+    border:1px solid black;
+    padding: 3rem;
+    border-radius: 1px;
+    width: 60%;
+
+    }
+    .payment_form label{
+        font-size: 2rem;
+        font-weight: bolder;
+        margin: 1rem 0;
+
+
+    }
+    .payment_form input{
+        width:100%;
+        margin-bottom: 1rem;
+        
+    }
+}
+
+
+
+
+.mobilecart{
+    
+    a{
+        font-size: 2rem;
+        margin-right: 1rem;
+        color:grey;
+
+    }
+
+/* Quantity input container */
+.quantity-input {
+    display: flex;
+    align-items: center;
+  justify-content: center;
+  
+}
+
+/* Quantity label */
+.quantity-label {
+
+    
+    
+    font-size: 2rem
+}
+
+/* Quantity input */
+.quantity-input input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 0 5px;
+    font-size: 2rem;
+}
+
+/* Increment and decrement buttons */
+.quantity-input button {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 2rem;
+}
+
+/* Disable decrement button when quantity is 1 */
+.quantity-input button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Hover styles for buttons */
+.quantity-input button:hover {
+    background-color: #e9ecef;
+}
+}

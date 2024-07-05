@@ -43,6 +43,8 @@ cloudinary.config({
 
 const FRONTEND_URL=process.env.FRONTEND_URL;
 
+app.use(express.static(path.join(__dirname,"../client/build")))
+
 app.get('/', (req, res) => {
   res.send('Hello');
 });
@@ -951,6 +953,11 @@ app.get('/feedbackget', (req, res) => {
     res.json(result);
   });
 });
+
+
+app.get("*",(req,res)=>{
+  res.sendFile(path.join(__dirname,"../frontend/build/index.html"))
+})
 
 app.listen(3001,()=>{
     console.log("hey,running.");
